@@ -1,0 +1,7 @@
+version: '3.1'
+
+services:
+  react-test-app:
+    image: 54.167.236.65:8083/react-test-app:0.1
+    ports:
+      - 3000:3000
