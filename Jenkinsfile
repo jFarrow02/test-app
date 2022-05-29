@@ -29,7 +29,7 @@ pipeline { // pipeline must be top level
                 expression {
                     // define boolean expression here
                     // env.BRANCH_NAME == 'dev'
-                    executeTests == true
+                    params.executeTests == true
                 }
             }
 
