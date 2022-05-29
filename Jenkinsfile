@@ -55,7 +55,7 @@ pipeline { // pipeline must be top level
         stage("deploy") {
 
             input {
-                messsage "Select the environment to deploy:"
+                message "Select the environment to deploy:"
                 ok "Environment selected"
                 parameters {
                     choice(name: 'ENV', choices: ['Dev', 'Staging', 'Prod'], description: 'Describes environment')
