@@ -38,13 +38,19 @@ pipeline { // pipeline must be top level
     post {  // execute logic after all steps are done
         // conditions:
         always {
-
+            steps {
+                echo 'pipeline finished'
+            }
         }
         success {
-
+            steps {
+                echo 'pipeline succeeded'
+            }
         }
         failure {
-
+            steps {
+                echo 'pipeline failed'
+            }
         }
 
     }
