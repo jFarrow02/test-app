@@ -1,8 +1,18 @@
 pipeline { // pipeline must be top level
     agent any // where to execute
+    parameters {
+        string(name: 'VERSION', defaultValue: '', description: '')
+        // choice(name: 'VERSION', choices: ['1.1', '1.2', '1.3'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+    }
+    // tools { // access gradle, maven, and JDK only
+    //     maven ''
+
+    // }
     environment {
         // define env vars available for all stages in file
         NEW_VERSION = '1.3.0'
+        NEXUS_CREDENTIALS = credentials('nexus-creds') // credentials('{credentialId}')
     }
 
     stages { // where the "work" happens
@@ -18,7 +28,8 @@ pipeline { // pipeline must be top level
             when {
                 expression {
                     // define boolean expression here
-                    env.BRANCH_NAME == 'dev'
+                    // env.BRANCH_NAME == 'dev'
+                    executeTests == true
                 }
             }
 
@@ -31,6 +42,13 @@ pipeline { // pipeline must be top level
 
             steps {
                 echo 'deploying the application...'
+                // use withCredentials when you need creds in a single stage
+                withCredentials([
+                    usernamePassword(credentials: 'nexus-credentials', usernameVariable: USER,
+                    passwordVariable: PWD)
+                ]) {
+                    echo "Username: ${USER}"
+                }
             }
         }
     }
