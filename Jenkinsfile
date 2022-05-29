@@ -18,7 +18,7 @@ pipeline { // pipeline must be top level
             when {
                 expression {
                     // define boolean expression here
-                    BRANCH_NAME == 'dev'
+                    env.BRANCH_NAME == 'dev'
                 }
             }
 
