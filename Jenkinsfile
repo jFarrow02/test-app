@@ -1,3 +1,5 @@
+def gv
+
 pipeline { // pipeline must be top level
     agent any // where to execute
     parameters {
@@ -16,11 +18,20 @@ pipeline { // pipeline must be top level
     }
 
     stages { // where the "work" happens
+
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage("build") {
 
             steps {
-                echo 'building the application...'
-                echo "building version ${NEW_VERSION}"
+                script {
+                    gv.buildApp()
+                }
             }
         }
 
@@ -34,14 +45,20 @@ pipeline { // pipeline must be top level
             }
 
             steps { // this steps will only execute if branch is dev
-                echo 'testing the application...'
+                // echo 'testing the application...'
+                script {
+                    gv.testApp()
+                }
             }
         }
 
         stage("deploy") {
 
             steps {
-                echo 'deploying the application...'
+                script {
+                    gv.deployApp()
+                }
+                // echo 'deploying the application...'
                 // use withCredentials when you need creds in a single stage
                 withCredentials([
                     usernamePassword(credentialsId: 'nexus-creds', usernameVariable: 'USER',
