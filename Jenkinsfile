@@ -12,7 +12,7 @@ pipeline { // pipeline must be top level
     environment {
         // define env vars available for all stages in file
         NEW_VERSION = '1.3.0'
-        NEXUS_CREDENTIALS = credentials('nexus-creds') // credentials('{credentialId}')
+        // NEXUS_CREDENTIALS = credentials('nexus-creds') // credentials('{credentialId}')
     }
 
     stages { // where the "work" happens
