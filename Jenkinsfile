@@ -44,7 +44,7 @@ pipeline { // pipeline must be top level
                 echo 'deploying the application...'
                 // use withCredentials when you need creds in a single stage
                 withCredentials([
-                    usernamePassword(credentials: 'nexus-credentials', usernameVariable: USER,
+                    usernamePassword(credentials: 'nexus-creds', usernameVariable: USER,
                     passwordVariable: PWD)
                 ]) {
                     echo "Username: ${USER}"
